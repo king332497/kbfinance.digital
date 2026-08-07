@@ -390,6 +390,7 @@
 
   const endDashboardSession = () => {
     window.clearTimeout(dashboardSessionTimer);
+    sessionStorage.setItem('kbDashboardReauth', '1');
     window.NovaStorage?.clearSession?.();
     window.location.replace(LOGIN_ROUTE);
   };
