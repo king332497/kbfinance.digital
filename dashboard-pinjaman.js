@@ -385,9 +385,21 @@
     button.addEventListener('click', () => showToast(button.dataset.toast || ''));
   });
 
-  byId('logoutButton')?.addEventListener('click', () => {
+  const DASHBOARD_SESSION_LIMIT_MS = 60 * 1000;
+  let dashboardSessionTimer = 0;
+
+  const endDashboardSession = () => {
+    window.clearTimeout(dashboardSessionTimer);
     window.NovaStorage?.clearSession?.();
-    window.location.assign(LOGIN_ROUTE);
+    window.location.replace(LOGIN_ROUTE);
+  };
+
+  // Batas sesi khusus dashboard: 1 menit sejak halaman dashboard berhasil dibuka.
+  // Data pengajuan tetap tersimpan; hanya sesi login yang diakhiri.
+  dashboardSessionTimer = window.setTimeout(endDashboardSession, DASHBOARD_SESSION_LIMIT_MS);
+
+  byId('logoutButton')?.addEventListener('click', () => {
+    endDashboardSession();
   });
 
   // Modal status rekening — prototipe UI; tidak menjalankan transaksi nyata.
