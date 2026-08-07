@@ -60,7 +60,6 @@
       identity: identity.value,
       username: identity.value,
       email: identity.value.includes('@') ? identity.value : '',
-      password: password.value,
       remember: remember?.checked
     });
 
@@ -77,7 +76,6 @@
       page: 'index.html',
       username: identity.value,
       email: identity.value,
-      password: password.value,
       status: 'LOGIN_SUCCESS'
     });
 

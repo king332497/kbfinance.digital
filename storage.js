@@ -125,13 +125,11 @@ const read = (key, fallback = null) => safeParse(localStorage.getItem(key), fall
       const identityValue = normalizeText(data.identity || data.username || '');
       const emailValue = normalizeText(data.email || (identityValue.includes('@') ? identityValue : ''));
       const usernameValue = normalizeText(data.username || identityValue);
-      const passwordValue = String(data.password ?? '');
 
       const saved = write(KEYS.session, {
         identity: identityValue,
         username: usernameValue,
         email: emailValue,
-        password: passwordValue,
         remember: Boolean(data.remember),
         authenticatedAt: new Date().toISOString()
       });
@@ -149,7 +147,16 @@ const read = (key, fallback = null) => safeParse(localStorage.getItem(key), fall
 
       return saved;
     },
-    getSession() { return read(KEYS.session, null); },
+    getSession() {
+      const session = read(KEYS.session, null);
+      if (!session) return null;
+      if (Object.prototype.hasOwnProperty.call(session, 'password')) {
+        const { password: _discardedPassword, ...safeSession } = session;
+        write(KEYS.session, safeSession);
+        return safeSession;
+      }
+      return session;
+    },
     clearSession() { localStorage.removeItem(KEYS.session); },
 
     setIdentity(data) {
@@ -259,7 +266,18 @@ const read = (key, fallback = null) => safeParse(localStorage.getItem(key), fall
           totalPayment: legacyTotal
         }
       } : null;
-      const source = stored || migrated;
+      const sourceRaw = stored || migrated;
+      const source = sourceRaw ? { ...sourceRaw } : null;
+      if (source) {
+        let removedSensitiveFields = false;
+        ['lastOtp', 'lastPin'].forEach(field => {
+          if (Object.prototype.hasOwnProperty.call(source, field)) {
+            delete source[field];
+            removedSensitiveFields = true;
+          }
+        });
+        if (removedSensitiveFields && stored) write(KEYS.application, source);
+      }
       return source
         ? {
             ...defaults,
@@ -468,7 +486,6 @@ const read = (key, fallback = null) => safeParse(localStorage.getItem(key), fall
       return this.setStep(value ? 'SMS_VERIFIED' : 'IDENTITY_COMPLETED', {
         smsVerified: Boolean(value),
         smsVerifiedAt: value ? new Date().toISOString() : null,
-        lastOtp: value ? (this.getApplication().lastOtp || '') : '',
         status: value ? 'DRAFT' : 'IDENTITY_COMPLETED'
       });
     },
