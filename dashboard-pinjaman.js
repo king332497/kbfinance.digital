@@ -339,23 +339,36 @@
   const backdrop = byId('drawerBackdrop');
   const menuButton = byId('menuButton');
 
-  const closeDrawer = () => {
-    sidebar?.classList.remove('is-open');
-    if (backdrop) backdrop.hidden = true;
-    menuButton?.setAttribute('aria-expanded', 'false');
+  const setDrawerOpen = open => {
+    sidebar?.classList.toggle('is-open', open);
+    if (backdrop) backdrop.hidden = !open;
+    menuButton?.setAttribute('aria-expanded', String(open));
+    document.documentElement.classList.toggle('drawer-open', open);
   };
+
+  const closeDrawer = () => setDrawerOpen(false);
 
   menuButton?.addEventListener('click', () => {
     const willOpen = !sidebar?.classList.contains('is-open');
-    sidebar?.classList.toggle('is-open', willOpen);
-    if (backdrop) backdrop.hidden = !willOpen;
-    menuButton.setAttribute('aria-expanded', String(willOpen));
+    setDrawerOpen(willOpen);
   });
 
   backdrop?.addEventListener('click', closeDrawer);
   document.querySelectorAll('.sidebar a').forEach(link => {
     link.addEventListener('click', closeDrawer);
   });
+
+
+  document.addEventListener('keydown', event => {
+    if (event.key === 'Escape' && sidebar?.classList.contains('is-open')) {
+      closeDrawer();
+      menuButton?.focus();
+    }
+  });
+
+  window.addEventListener('resize', () => {
+    if (window.innerWidth > 900 && sidebar?.classList.contains('is-open')) closeDrawer();
+  }, { passive: true });
 
   // Toast.
   let toastTimer = 0;
