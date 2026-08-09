@@ -434,6 +434,11 @@
     modalCloseButton?.focus();
   };
 
+  // Tombol card Dormant membuka notifikasi aktivasi rekening.
+  document.getElementById('dormantStatusButton')?.addEventListener('click', () => {
+    showDormantModal();
+  });
+
   const beginAccountCheck = () => {
     if (!accountInput || !isValidAccount(accountInput.value)) {
       accountInput?.focus();
