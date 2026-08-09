@@ -580,11 +580,3 @@
     }
   });
 })();
-
-
-// Dashboard Dormant status card: membuka modal aktivasi yang sudah ada
-(function(){
- const btn=document.getElementById('dormantStatusButton');
- const transfer=document.getElementById('transferButton');
- if(btn && transfer){ btn.addEventListener('click',()=>transfer.click()); }
-})();
